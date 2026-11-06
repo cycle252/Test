@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6821f" />
+    <meta name="description" content="A tiny click counter for testing Cloudflare Workers and GitHub deployments." />
+    <title>Cloudflare Test Counter</title>
+    <style>
+      :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #202124; background: #f7f6f3; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; }
+      main { width: min(100%, 440px); padding: 40px 32px; background: white; border: 1px solid #e7e4de; border-radius: 24px; text-align: center; box-shadow: 0 16px 48px #20212408; }
+      .badge { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; color: #80501f; font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; }
+      .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #f6821f; }
+      h1 { margin: 0 0 12px; font-size: clamp(26px, 6vw, 32px); letter-spacing: -.04em; }
+      .intro { margin: 0; color: #6b6b6b; line-height: 1.6; }
+      output { display: block; margin: 32px 0; font-size: clamp(64px, 18vw, 88px); font-weight: 750; letter-spacing: -.06em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+      button { width: 100%; padding: 16px 24px; border: 0; border-radius: 12px; background: #f6821f; color: #241306; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation; transition: background .15s, transform .1s; }
+      button:hover { background: #f99b4c; }
+      button:active { transform: scale(.98); }
+      button:focus-visible { outline: 3px solid #202124; outline-offset: 4px; }
+      footer { margin-top: 24px; color: #767676; font-size: 12px; line-height: 1.6; }
+      @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="badge">Cloudflare playground</p>
+      <h1>Make every click count.</h1>
+      <p class="intro">A tiny app to test your deployment.<br />Press the button and watch it add up.</p>
+      <output id="count" aria-label="Click count" aria-live="polite" aria-atomic="true">0</output>
+      <button id="test-button" type="button">Test button +1</button>
+      <footer>Served by Cloudflare · Deployed from GitHub<br />Count resets when you refresh.</footer>
+    </main>
+    <script>
+      const countOutput = document.getElementById("count");
+      let count = 0;
+      document.getElementById("test-button").addEventListener("click", () => {
+        count += 1;
+        countOutput.textContent = String(count);
+      });
+    </script>
+  </body>
+</html>
